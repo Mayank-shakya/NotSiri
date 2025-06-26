@@ -11,11 +11,26 @@ import path from 'path'
 const _dirname=path.resolve()
 
 const app=express()
-app.use(cors({
-    origin:"https://notsiri.onrender.com",
-    credentials:true
-}))
+// app.use(cors({
+//     origin:"https://notsiri.onrender.com",
+//     credentials:true
+// }))
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://notsiri.onrender.com"
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow no origin for tools like Postman or direct curl requests
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 
 
 const port=process.env.PORT || 5000

@@ -22,7 +22,6 @@ function Home() {
 
   const speak = (text) => {
     if (!text) return;
-
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'hi-IN';
     const voices = synth.getVoices();
@@ -192,7 +191,8 @@ function Home() {
   };
 
   return (
-    <div className='w-full h-screen bg-gradient-to-t from-black to-[#02023d] flex items-center justify-center gap-4 relative overflow-hidden lg:pl-[320px]'>
+    <div className='w-full min-h-screen bg-gradient-to-t from-black to-[#02023d] flex flex-col items-center justify-center gap-6 p-6 pt-24 relative lg:pl-[320px]'>
+      {/* Sidebar on Desktop */}
       <div className='hidden lg:flex flex-col gap-3 text-white absolute left-5 top-5 bottom-5 w-[300px] bg-white/10 backdrop-blur-lg rounded-xl p-4 overflow-y-auto z-20'>
         <h2 className='text-lg font-semibold'>History</h2>
         <button
@@ -222,8 +222,8 @@ function Home() {
         </div>
       </div>
 
+      {/* Hamburger Menu on Mobile */}
       <CgMenuRight className='lg:hidden text-white absolute top-5 right-5 w-6 h-6' onClick={() => setHam(true)} />
-
       <div className={`absolute lg:hidden top-0 w-full h-full bg-[#00000053] backdrop-blur-lg p-5 flex flex-col gap-4 ${ham ? "translate-x-0" : "translate-x-full"} transition-transform`}>
         <RxCross1 className='text-white absolute top-5 right-5 w-6 h-6' onClick={() => setHam(false)} />
         <button className='bg-white text-black rounded-full font-semibold text-lg px-5 py-2' onClick={handleLogOut}>Log Out</button>
@@ -257,19 +257,20 @@ function Home() {
         </div>
       </div>
 
+      {/* Top Right Buttons */}
       <div className='absolute top-5 right-5 hidden lg:flex gap-4'>
         <button className='bg-white text-black rounded-full font-semibold px-5 py-2' onClick={handleLogOut}>Log Out</button>
         <button className='bg-white text-black rounded-full font-semibold px-5 py-2' onClick={() => navigate("/customize")}>Customize</button>
       </div>
 
-      <div className='w-[300px] h-[400px] overflow-hidden rounded-4xl shadow-lg'>
+      {/* Assistant Image */}
+      <div className='w-[240px] h-[320px] sm:w-[300px] sm:h-[400px] overflow-hidden rounded-2xl shadow-xl'>
         <img src={userData?.assistantImage} alt="Assistant" className='h-full object-cover w-full' />
-     
       </div>
-      
-      <h1 className='text-white text-lg font-semibold'>I'm {userData?.assistantName}</h1>
-      <img src={aiText ? aiImg : userImg} alt="avatar" className='w-[200px]' />
-      <h1 className='text-white text-lg font-semibold text-center px-4'>{userText || aiText}</h1>
+
+      {/* Avatar and Text */}
+      <img src={aiText ? aiImg : userImg} alt="avatar" className='w-[120px] sm:w-[200px]' />
+      <h1 className='text-white text-lg font-semibold text-center max-w-xs sm:max-w-md px-4'>{userText || aiText}</h1>
     </div>
   );
 }
