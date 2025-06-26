@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import axios from "axios";
 
 const geminiResponse = async (command, assistantName, userName) => {
@@ -6,7 +12,7 @@ const geminiResponse = async (command, assistantName, userName) => {
 
     // // 🔍 Log input parameters
     // console.log("🔁 [geminiResponse] Called with:");
-    // console.log("   Command:", command);
+    // console.log("   Command:", command);rou
     // console.log("   Assistant Name:", assistantName);
     // console.log("   User Name:", userName);
 

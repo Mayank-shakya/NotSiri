@@ -21,9 +21,13 @@ try {
   let result=await axios.post(`${serverUrl}/api/auth/signin`,{
    email,password
   },{withCredentials:true} )
+
  setUserData(result.data)
-  setLoading(false)
-   navigate("/")
+setEmail("")
+setPassword("")
+setLoading(false)
+navigate("/")
+
 } catch (error) {
   console.log(error)
   setUserData(null)

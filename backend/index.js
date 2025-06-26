@@ -15,6 +15,9 @@ app.use(cors({
     origin:"https://notsiri.onrender.com",
     credentials:true
 }))
+
+
+
 const port=process.env.PORT || 5000
 app.use(express.json())
 app.use(cookieParser())

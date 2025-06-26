@@ -14,24 +14,31 @@ function SignUp() {
     const [loading,setLoading]=useState(false)
     const [password,setPassword]=useState("")
 const [err,setErr]=useState("")
-  const handleSignUp=async (e)=>{
-    e.preventDefault()
-    setErr("")
-    setLoading(true)
-try {
-  let result=await axios.post(`${serverUrl}/api/auth/signup`,{
-    name,email,password
-  },{withCredentials:true} )
- setUserData(result.data)
-  setLoading(false)
-  navigate("/customize")
-} catch (error) {
-  console.log(error)
-  setUserData(null)
-  setLoading(false)
-  setErr(error.response.data.message)
-}
-    }
+  const handleSignUp = async (e) => {
+  e.preventDefault();
+  setErr("");
+  setLoading(true);
+  try {
+    let result = await axios.post(`${serverUrl}/api/auth/signup`, {
+      name, email, password
+    }, { withCredentials: true });
+
+    setUserData(result.data);
+
+    setName("");
+    setEmail("");
+    setPassword("");
+
+    setLoading(false);
+    navigate("/customize");
+  } catch (error) {
+    console.log(error);
+    setUserData(null);
+    setLoading(false);
+    setErr(error.response.data.message);
+  }
+};
+
   return (
     <div className='w-full h-[100vh] bg-cover flex justify-center items-center' style={{backgroundImage:`url(${bg})`}} >
  <form className='w-[90%] h-[600px] max-w-[500px] bg-[#00000062] backdrop-blur shadow-lg shadow-black flex flex-col items-center justify-center gap-[20px] px-[20px]' onSubmit={handleSignUp}>

@@ -104,3 +104,17 @@ export const askToAssistant=async (req,res)=>{
   return res.status(500).json({ response: "ask assistant error" })
    }
 }
+
+export const clearUserHistory = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.history = [];
+    await user.save();
+
+    return res.status(200).json({ message: "History cleared" });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to clear history" });
+  }
+};

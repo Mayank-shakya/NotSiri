@@ -1,19 +1,21 @@
-import jwt from "jsonwebtoken"
-const isAuth=async (req,res,next)=>{
-    try {
-        const token=req.cookies.token
-        if(!token){
-            return res.status(400).json({message:"token not found"})
-        }
-        const verifyToken=await jwt.verify(token,process.env.JWT_SECRET)
-        req.userId=verifyToken.userId
+import jwt from "jsonwebtoken";
 
-        next()
+const isAuth = async (req, res, next) => {
+  try {
+    const token = req.cookies?.token;
 
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({message:"is Auth error"})
+    if (!token) {
+      return res.status(401).json({ message: "Token not found" });
     }
-}
 
-export default isAuth
+    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = verifyToken.id; // ✅ Must match the token payload
+
+    next();
+  } catch (error) {
+    console.error("Auth middleware error:", error);
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+};
+
+export default isAuth;
